@@ -1,0 +1,15 @@
+inaturalist_project:
+  outputs:
+    dev:
+      type: snowflake
+      account: azb79167
+      user: BULLFROG
+      private_key_path: "/usr/local/airflow/include/rsa_key.pem"
+      private_key_passphrase: ""
+      role: TRAINING_ROLE
+      database: FIVETRAN_DATABASE
+      schema: S3_BULLFROG
+      warehouse: TRAINING_WH
+      threads: 1
+  target: dev
+

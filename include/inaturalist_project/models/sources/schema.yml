@@ -1,0 +1,32 @@
+version: 2
+
+sources:
+  - name: inaturalist_raw
+    database: FIVETRAN_DATABASE
+    schema: S3_BULLFROG
+
+    tables:
+      - name: observations
+        description: "Raw iNaturalist observation records loaded via Fivetran"
+        tests:
+          - not_null:
+              column_name: id
+          - unique:
+              column_name: id
+
+      - name: taxa
+        description: "Raw iNaturalist taxonomy data"
+        tests:
+          - not_null:
+              column_name: id
+          - unique:
+              column_name: id
+
+      - name: users
+        description: "Raw iNaturalist user metadata"
+        tests:
+          - not_null:
+              column_name: id
+          - unique:
+              column_name: id
+

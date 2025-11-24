@@ -1,0 +1,61 @@
+version: 2
+
+models:
+  - name: dim_taxa
+    description: "Dimension table for taxa"
+    tests:
+      - unique: {column_name: taxon_key}
+      - not_null: {column_name: taxon_key}
+
+    columns:
+      - name: scientific_name
+        tests:
+          - not_null
+
+      - name: rank
+        tests:
+          - accepted_values:
+              values: ['kingdom', 'phylum', 'class', 'order', 'family', 'genus', 'species']
+
+  - name: dim_users
+    description: "Dimension table for users"
+    tests:
+      - unique: {column_name: user_key}
+      - not_null: {column_name: user_key}
+
+  - name: fct_observations
+    description: "Fact table combining observation + taxon + user data"
+    tests:
+      - not_null: {column_name: observation_key}
+      - unique: {column_name: observation_key}
+
+    columns:
+      - name: user_key
+        tests:
+          - relationships:
+              to: ref('dim_users')
+              field: user_key
+
+      - name: taxon_key
+        tests:
+          - relationships:
+              to: ref('dim_taxa')
+              field: taxon_key
+
+      - name: observed_on
+        tests:
+          - not_null
+
+      - name: rolling_obs_insecta_30d
+        description: "30-day rolling observation count for insecta"
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: "rolling_obs_insecta_30d >= 0"
+
+      - name: rolling_obs_aves_30d
+        description: "30-day rolling observation count for aves"
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: "rolling_obs_aves_30d >= 0"

@@ -1,0 +1,38 @@
+version: 2
+
+models:
+  - name: stg_inat__observations
+    description: "Cleaned observation-level data"
+    tests:
+      - unique:
+          column_name: observation_id
+      - not_null:
+          column_name: observation_id
+
+    columns:
+      - name: user_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_inat__users')
+              field: user_id
+
+      - name: taxon_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_inat__taxa')
+              field: taxon_id
+
+  - name: stg_inat__taxa
+    description: "Cleaned taxonomy metadata"
+    tests:
+      - unique: {column_name: taxon_id}
+      - not_null: {column_name: taxon_id}
+
+  - name: stg_inat__users
+    description: "Cleaned user metadata"
+    tests:
+      - unique: {column_name: user_id}
+      - not_null: {column_name: user_id}
+
