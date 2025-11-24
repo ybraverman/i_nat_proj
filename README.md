@@ -76,7 +76,9 @@ The app queries the `FCT_OBSERVATION_FEATURES` and `FCT_OBSERVATIONS` dbt models
     - **Conn Id**: `aws_default`  
     - **Conn Type**: `Amazon Web Services`  
     - **Login**: AWS Access Key ID  
-    - **Password**: AWS Secret Access Key  
+    - **Password**: AWS Secret Access Key
+   
+  - `fivetran` and `snowflake` connections with `rsa_key.pem` in the include folder
 
 - **Python packages:**  
   `apache-airflow`, `requests`, `pandas`, `boto3`, `botocore`, `streamlit`, `plotly`, `cryptography`
@@ -85,8 +87,8 @@ The app queries the `FCT_OBSERVATION_FEATURES` and `FCT_OBSERVATIONS` dbt models
   - Airflow home directory with dbt project at `include/inaturalist_project`  
   - Streamlit app files in `streamlit_app/`
 
-- ****Data Source Configuration**
-- The pipeline by default fetches iNaturalist observations for the user arachphotobia. If you want to extract data for a different user, you will need to modify the username parameter in the Airflow DAG or in the Python script include.inat_api_pull.
+- **Data Source Configuration**
+  - The pipeline by default fetches iNaturalist observations for the user arachphotobia. If you want to extract data for a different user, you will need to modify the username parameter in the Airflow DAG or in the Python script include.inat_api_pull.
 
 
 
