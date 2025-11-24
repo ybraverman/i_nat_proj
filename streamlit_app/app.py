@@ -131,7 +131,7 @@ col1, col2, col3= st.columns(3)
 with col1:
     st.metric("Observations Range", f"{min_date} to {max_date}")
 with col2:
-    st.metric("Total Observations", f"{len(df):,}")
+    st.metric("Total Observations", f"{df['OBSERVATION_ID'].nunique():,}")
 with col3:
     st.metric(f"Total {selected_taxon} Observations", 
               f"{df[df['ICONIC_TAXON_NAME'] == selected_taxon].shape[0]:,}")
